@@ -71,3 +71,13 @@ test('get list of all events when user selects "See all cities"', async () => {
   expect(AppWrapper.state('events')).toEqual(allEvents);
   AppWrapper.unmount();
 });
+test("load a list of 32 events by default", async () => {
+  const AppWrapper = mount(<App />);
+  const allEvents = await getEvents();
+  //check if the state of "eventsLength" (which returns a number) is not undefined
+  expect(AppWrapper.state("eventsLength")).not.toEqual(undefined);
+  const sliceNumber = AppWrapper.state("eventsLength");
+  //check if the events state is updated with the appropriate length after fetching
+  expect(AppWrapper.state("events")).toEqual(allEvents.slice(0, sliceNumber));
+  AppWrapper.unmount();
+});
