@@ -7,14 +7,14 @@ class NumberOfEvents extends Component {
   inputChanged = (event) => {
     //if no number is set, numberValue is set to 32 by default
     const numberValue = event.target.value;
-    if (numberValue <= 0 || typeof numberValue === "number") {
+    if (numberValue <= 0 && typeof numberValue === "number") {
       this.setState({
         errorText: "Please enter a positive number to view at least one event!",
         eventsNumber: numberValue,
         warningText: null,
       });
     } else if (numberValue > this.props.totalResNumber) {
-      return this.setState({
+      this.setState({
         eventsNumber: this.props.totalResNumber,
         errorText: null,
         warningText: `Oh no! There's only ${this.props.totalResNumber} events in this category!`,
@@ -33,9 +33,15 @@ class NumberOfEvents extends Component {
     const { events, updateEvents, totalResNumber } = this.props;
     return (
       <div className="eventsNumber">
-        {this.state.errorText && <ErrorAlert text={this.state.errorText} />}
+        {this.state.errorText && <>
+          {/* <ErrorAlert text={this.state.errorText} /> */}
+          {this.state.errorText}
+        </>}
         {this.state.warningText && (
-          <WarningAlert text={this.state.warningText} />
+          <>
+            {/* <WarningAlert text={this.state.warningText} /> */}
+            <span>{this.state.warningText}</span>
+          </>
         )}
 
         <label>Show</label>

@@ -1,18 +1,21 @@
 // src/App.js
 
-import React, { Component } from 'react';
-import './App.css';
-import EventList from './EventList';
-import CitySearch from './CitySearch';
-import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
-import './nprogress.css';
+import React, { Component } from "react";
+import "./App.css";
+import EventList from "./EventList";
+import CitySearch from "./CitySearch";
+import { getEvents, extractLocations, checkToken, getAccessToken } from "./api";
+import "./nprogress.css";
 import NumberOfEvents from "./NumberOfEvents";
 
 class App extends Component {
   state = {
     events: [],
-    locations: []
-  }
+    locations: [],
+    numberOfEvents: 0,
+    // allEvents: [],
+    // currentLocation: [],
+  };
 
   componentDidMount() {
     this.mounted = true;
@@ -20,10 +23,11 @@ class App extends Component {
       if (this.mounted) {
         this.setState({ events, locations: extractLocations(events) });
       }
+
     });
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.mounted = false;
   }
 
@@ -53,9 +57,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
+        <CitySearch
+          locations={this.state.locations}
+          updateEvents={this.updateEvents}
+        />
         <EventList events={this.state.events} />
-        
       </div>
     );
   }
