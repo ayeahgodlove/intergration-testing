@@ -62,24 +62,28 @@ describe("<App/> integration", () => {
     const eventsToShow = allEvents.filter(
       (event) => event.location === selectedCity
     );
-    expect(AppWrapper.state("events")).toEqual(eventsToShow);
+    expect(AppWrapper.state("events")).toEqual(eventsToShow)
     AppWrapper.unmount();
   });
+
   test('get list of all events when user selects "See all cities"', async () => {
     const AppWrapper = mount(<App />);
     const numberOfEvents = AppWrapper.state("numberOfEvents");
     const suggestionItems = AppWrapper.find(CitySearch).find(".suggestions li");
     suggestionItems.at(suggestionItems.length - 1).simulate("click");
     const allEvents = await getEvents();
-    expect(AppWrapper.state("events")).toEqual(allEvents.slice(0, numberOfEvents));
+    expect(AppWrapper.state("events")).toEqual(
+      allEvents.slice(0, numberOfEvents)
+    );
     AppWrapper.unmount();
   });
 
-  // test("passing number of events", () => {
-  //   const AppWrapper = mount(<App />);
-  //   const AppNumberOfEventsState = AppWrapper.state("numberOfEvents");
-  //   expect(AppNumberOfEventsState).not.toEqual(undefined);
-  //   expect(AppWrapper.find(EventList).props().numberOfEvents).toEqual(32);
-  //   AppWrapper.unmount();
-  // });
+  test("passing number of events", () => {
+    let AppWrapper = mount(<App />);
+    const AppNumberOfEventsState = AppWrapper.state("numberOfEvents");
+    console.log("AppNumberOfEventsState: ", AppNumberOfEventsState)
+    expect(AppNumberOfEventsState).not.toEqual(undefined);
+    expect(AppWrapper.find(EventList).props().numberOfEvents).toEqual(32);
+    AppWrapper.unmount();
+  });
 });

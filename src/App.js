@@ -12,7 +12,7 @@ class App extends Component {
   state = {
     events: [],
     locations: [],
-    numberOfEvents: 0,
+    numberOfEvents: 32,
     // allEvents: [],
     // currentLocation: [],
   };
@@ -23,7 +23,6 @@ class App extends Component {
       if (this.mounted) {
         this.setState({ events, locations: extractLocations(events) });
       }
-
     });
   }
 
@@ -57,11 +56,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <NumberOfEvents
+          events={this.state.events}
+          updateEvents={this.updateEvents}
+        />
         <CitySearch
           locations={this.state.locations}
           updateEvents={this.updateEvents}
         />
-        <EventList events={this.state.events} />
+        <EventList events={this.state.events} numberOfEvents={this.state.numberOfEvents} />
       </div>
     );
   }

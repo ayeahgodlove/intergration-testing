@@ -5,7 +5,7 @@ import Event from './Event';
 
 class EventList extends Component {
   render() {
-    const { events } = this.props;
+    const { events, numberOfEvents } = this.props;
     return (
       <ul className="EventList">
           {events.map(event =>
@@ -13,6 +13,7 @@ class EventList extends Component {
                 <Event event={event} />
             </li>
           )}
+          <li key="numberOfEvents">{numberOfEvents}</li>
       </ul>
     );
   }
